@@ -1,0 +1,15 @@
+---
+- name: Manage Host on pg_hba.conf
+  hosts: all
+  become: yes
+  tasks:
+    - name: Add host at the end of a pg_hba.conf
+      lineinfile:
+        path: /etc/postgresql/9.6/main/pg_hba.conf
+        insertbefore: '^# IPv6 local'
+        line: 'host    {{ dbname }}             {{ user }}             {{ allowed_host }}/32            md5'
+        owner: postgres
+        group: postgres
+        mode: 0644
+    - name: Reload postgresql
+      shell: /etc/init.d/postgresql reload

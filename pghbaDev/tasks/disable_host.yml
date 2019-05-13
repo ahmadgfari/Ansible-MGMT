@@ -1,0 +1,15 @@
+---
+- name: Manage Host on pg_hba.conf
+  hosts: all
+  become: yes
+  tasks:
+    - name: Disable host at pg_hba.conf
+      replace:
+        path: /etc/postgresql/9.6/main/pg_hba.conf
+        regexp: '(.*{{ target_user }}             {{ target_host }}/32.*)'
+        replace: '#\1'
+        owner: postgres
+        group: postgres
+        mode: 0644
+    - name: Reload postgresql
+      shell: /etc/init.d/postgresql reload

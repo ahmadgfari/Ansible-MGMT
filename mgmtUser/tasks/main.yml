@@ -1,0 +1,5 @@
+---
+# tasks file for mgmtUser
+- include_tasks: adduser.yml
+
+- include_tasks: inject.yml  

@@ -1,0 +1,4 @@
+---
+# tasks file for pghbaDev
+- include_tasks: add_host.yml
+- include_tasks: disable_host.yml
